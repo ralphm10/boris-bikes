@@ -7,6 +7,7 @@ class DockingStation
       @bike
   end
   def dock_bike(bike)
-    @bike = bike
+    fail 'Docking station already in use' if @bike
+      @bike = bike
   end
 end

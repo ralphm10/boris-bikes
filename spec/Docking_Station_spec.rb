@@ -22,4 +22,10 @@ describe DockingStation do
       expect {subject.release_bike}.to raise_error 'No bikes available'
     end
   end
+  describe '#dock_bike(bike)' do
+    it 'raises an error if a bike is already docked here' do
+      subject.dock_bike(Bike.new)
+      expect {subject.dock_bike(Bike.new)}.to raise_error 'Docking station already in use'
+    end
+  end
 end
