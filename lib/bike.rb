@@ -10,6 +10,5 @@ attr_reader :broken
   end
   def report_broken
     @broken = true
-    self 
   end
 end

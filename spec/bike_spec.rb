@@ -11,6 +11,6 @@ describe Bike do
     expect(subject.broken).to eq false
   end
   it 'changes state to broken when method report_broken is called' do
-    expect(subject.report_broken.broken).to eq true
+    expect(subject.report_broken).to eq true
   end
 end
