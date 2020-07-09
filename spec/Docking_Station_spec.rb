@@ -24,7 +24,7 @@ describe DockingStation do
   end
   describe '#dock_bike(bike)' do
     it 'raises an error if a bike is already docked here' do
-      20.times{ subject.dock_bike(Bike.new) }
+      DockingStation::DEFAULT_CAPACITY.times{ subject.dock_bike(Bike.new) }
       expect {subject.dock_bike(Bike.new)}.to raise_error 'Docking station already in use'
     end
   end
