@@ -28,4 +28,12 @@ describe DockingStation do
       expect {subject.dock_bike(Bike.new)}.to raise_error 'Docking station already in use'
     end
   end
+  it 'initializes with a capacity given by the argument' do
+      station = DockingStation.new(30)
+      expect(station.capacity).to eq 30
+  end
+  it 'initializes with a default capacity of 20 when no argument given' do
+      station = DockingStation.new
+      expect(station.capacity).to eq 20
+  end
 end
