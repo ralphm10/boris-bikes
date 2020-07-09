@@ -5,16 +5,13 @@ describe DockingStation do
     expect(subject).to respond_to :release_bike
   end
   it 'releases a working bike' do
-    bike = Bike.new
-    expect(bike).to be_working
+    expect(double(:bike)).to be_working
   end
   it 'docks a bike' do
-    bike = Bike.new
-    expect(subject.dock_bike(bike)).to eq(subject.bikes)
+    expect(subject.dock_bike(double (:bike))).to eq(subject.bikes)
   end
   it 'checks a bike is availble' do
-    bike = Bike.new
-    subject.dock_bike(bike)
+    subject.dock_bike(double(:bike))
     expect(subject.bikes.length).to be >(0)
   end
   describe '#release_bike' do
@@ -22,7 +19,7 @@ describe DockingStation do
       expect {subject.release_bike}.to raise_error 'No bikes available'
     end
     it 'raise an error if the bike to be released is broken' do
-      bike = Bike.new
+      bike = double(:bike)
       bike.report_broken
       subject.dock_bike(bike)
       expect { subject.release_bike }.to raise_error 'This bike is broken'
@@ -30,8 +27,9 @@ describe DockingStation do
   end
   describe '#dock_bike(bike)' do
     it 'raises an error if a bike is already docked here' do
-      DockingStation::DEFAULT_CAPACITY.times{ subject.dock_bike(Bike.new) }
-      expect {subject.dock_bike(Bike.new)}.to raise_error 'Docking station already in use'
+      bike = double(:bike)
+      DockingStation::DEFAULT_CAPACITY.times{ subject.dock_bike(bike) }
+      expect { subject.dock_bike(bike) }.to raise_error 'Docking station already in use'
     end
   end
   it 'initializes with a capacity given by the argument' do
