@@ -1,7 +1,7 @@
 require_relative 'bike'
 
 class DockingStation
-  attr_reader :bikes, :capacity
+  attr_accessor :bikes, :capacity
 
   DEFAULT_CAPACITY = 20
   def initialize(capacity = DEFAULT_CAPACITY)
@@ -16,7 +16,7 @@ class DockingStation
   end
 
   def dock_bike(bike)
-    fail 'Docking station already in use' if full?
+    fail 'Docking station is full' if full?
     @bikes.push(bike)
   end
 
