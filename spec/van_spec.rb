@@ -38,9 +38,20 @@ describe Van do
       subject.retrieve_bikes(station)
       expect(subject.van_broken_bikes).to be_empty
     end
-    it 'removes fixed bikes from garages'
   end
-  describe '#release_bike' do 
+  describe '#release_bikes' do 
+    it 'raises an error if there are 0 fixed bikes in the van' do
+      station = DockingStation.new
+      expect {subject.release_bikes(station)}.to raise_error 'Van is empty'
+    end
+    it 'removes fixed bikes from van and puts them in docking station' do
+      station = DockingStation.new
+      bike = Bike.new
+      subject.van_fixed_bikes = [bike]
+      subject.release_bikes(station)
+      expect(subject.van_fixed_bikes).to be_empty
+      expect(station.bikes).to include(bike)
+    end
   end
 
 end

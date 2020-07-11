@@ -2,8 +2,7 @@ require_relative 'bike'
 require_relative 'docking_station'
 
 class Van
-  attr_reader :van_broken_bikes, :van_fixed_bikes, :van_capacity
-  attr_accessor :bikes
+  attr_accessor :van_broken_bikes, :van_fixed_bikes, :van_capacity, :bikes
 
   VAN_DEFAULT_CAPACITY = 20
   def initialize(van_capacity = VAN_DEFAULT_CAPACITY)
@@ -21,8 +20,13 @@ class Van
     @bikes.delete_if { |bike| bike.broken }
   end
 
-  def release_bike
+  def release_bikes(docking_station)
     fail 'Van is empty' if empty?
+    @bikes = docking_station.bikes
+    @van_fixed_bikes.each do |bike|
+      @bikes << bike
+      end
+    @van_fixed_bikes.clear 
   end
 
   private
